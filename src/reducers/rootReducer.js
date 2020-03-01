@@ -1,3 +1,4 @@
+//initial state is an object
 export const initialState = {
     additionalPrice: 0,
     car: {
@@ -14,14 +15,21 @@ export const initialState = {
       { id: 4, name: 'Rear spoiler', price: 250 }
     ]
 }
-
-export const reducer = ( state, action ) => {
+//reducer is just a JS function
+//state is the current state, action is always an object
+//action mush always have a type, can have payload or other keys
+//reducers always want immutable objects that return brand new objects
+export const rootReducer = ( state = initialState, action ) => {
   switch( action.type ) {
-    case 'REMOVE_FEATURE':
-      return {}
+    // case 'REMOVE_FEATURE':
+    //   const stillFeatures
+    //   return { ...state,}
 
     case 'BUY_ITEM':
-      return {}
+      const newFeature = { name: action.payload }
+      console.log( 'BUY_ITEM features:', state.car.features)
+      const newFeatures = [ ...state.car.features]
+      return { newFeatures: [ ...state.car.features, { newFeature } ] }
 
     default:
       return state
