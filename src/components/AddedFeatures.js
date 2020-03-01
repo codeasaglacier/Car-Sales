@@ -4,6 +4,7 @@ import AddedFeature from './AddedFeature';
 
 const AddedFeatures = ( { car, removeFeature } ) => {
   console.log( 'Car at AddedFeatures:', car)
+  console.log( 'Car.Features.length:',car.features.length)
   return (
     <div className="content">
       <h6>Added features:</h6>

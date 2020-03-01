@@ -21,19 +21,23 @@ export const initialState = {
 //reducers always want immutable objects that return brand new objects
 export const rootReducer = ( state = initialState, action ) => {
   switch( action.type ) {
-    // case 'REMOVE_FEATURE':
-    //   const stillFeatures
-    //   return { ...state,}
+    case 'REMOVE_FEATURE':
+      const remainingFeatures = { id: action.payload }
+
+      const removeFeature = ( i ) => {
+        state.additionalFeatures.push( state.car.features.splice( i, 1 )[ 0 ])
+      }
+      return { ...state, additionalFeatures: removeFeature( remainingFeatures )}
 
     case 'BUY_ITEM':
       const newFeature = { id: action.payload }
       console.log( 'BUY_ITEM features:', state.car.features)
-      const id = state.additionalFeatures.id
-      // const p = state.additionalFeatures.price
-      const newFeatures = ( i, id ) => {
+      console.log( 'BUY_ITEM car:', state.car)
+
+      const newFeatures = ( i ) => {
         state.car.features.push( state.additionalFeatures.splice( i, 1 )[ 0 ])
       }
-      return { ...state, features: newFeatures(newFeature) }
+      return { ...state, features: newFeatures( newFeature ) }
 
     default:
       return state
