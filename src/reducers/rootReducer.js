@@ -26,10 +26,14 @@ export const rootReducer = ( state = initialState, action ) => {
     //   return { ...state,}
 
     case 'BUY_ITEM':
-      const newFeature = { name: action.payload }
+      const newFeature = { id: action.payload }
       console.log( 'BUY_ITEM features:', state.car.features)
-      const newFeatures = [ ...state.car.features]
-      return { newFeatures: [ ...state.car.features, { newFeature } ] }
+      const id = state.additionalFeatures.id
+      // const p = state.additionalFeatures.price
+      const newFeatures = ( i, id ) => {
+        state.car.features.push( state.additionalFeatures.splice( i, 1 )[ 0 ])
+      }
+      return { ...state, features: newFeatures(newFeature) }
 
     default:
       return state
