@@ -1,15 +1,15 @@
-export const addFeature = newFeature => {
-  console.log( 'newFeature from action:', newFeature )
+export const addFeature = feature => {
+  console.log( 'newFeature from action:', feature )
   return {
     type: 'BUY_ITEM',
-    payload: newFeature
+    payload: feature
   }
 }
 
-export const removeFeature = remainingFeatures => {
-  console.log( 'remainingFeatures from action:', remainingFeatures )
+export const removeFeature = feature => {
+  console.log( 'remainingFeatures from action:', feature )
   return {
     type: 'REMOVE_FEATURE',
-    payload: remainingFeatures
+    payload: feature
   }
 }

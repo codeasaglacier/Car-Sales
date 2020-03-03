@@ -27,17 +27,24 @@ export const rootReducer = ( state = initialState, action ) => {
       const removeFeature = ( i ) => {
         state.additionalFeatures.push( state.car.features.splice( i, 1 )[ 0 ])
       }
+      // state.additionalPrice = state.car.features.price
       return { ...state, additionalFeatures: removeFeature( remainingFeatures )}
 
     case 'BUY_ITEM':
       const newFeature = { id: action.payload }
       console.log( 'BUY_ITEM features:', state.car.features)
       console.log( 'BUY_ITEM car:', state.car)
+      console.log( 'Car.Features.length @rootReducer:', state.car.features.length)
 
       const newFeatures = ( i ) => {
-        state.car.features.push( state.additionalFeatures.splice( i, 1 )[ 0 ])
+        state.car.features.push( state.additionalFeatures.splice( i, 1 )[ 0 ] )
       }
-      return { ...state, features: newFeatures( newFeature ) }
+      const featsTotal = state.car.features.reduce( function( prev, cur ){
+        return prev + cur.price
+      }, 0)
+      let addOnPrice = { ...state.additionalPrice }
+      addOnPrice = { ...featsTotal }
+      return { ...state, addOnPrice, features: newFeatures( newFeature ) }
 
     default:
       return state

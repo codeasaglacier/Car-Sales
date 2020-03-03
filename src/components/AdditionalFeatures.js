@@ -3,7 +3,7 @@ import AdditionalFeature from './AdditionalFeature';
 
 
 const AdditionalFeatures = ( { car, addFeature, additionalFeatures } ) => {
-  
+  console.log( 'Car.Features.length @ AdditionalFeatures:',car.features.length)
   return (
     <div className="content">
       <h4>Additional Features</h4>
