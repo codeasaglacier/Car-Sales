@@ -22,29 +22,56 @@ export const initialState = {
 export const rootReducer = ( state = initialState, action ) => {
   switch( action.type ) {
     case 'REMOVE_FEATURE':
-      const remainingFeatures = { id: action.payload }
+      //make a new copy of state
+      const newerState = { ...state }
 
-      const removeFeature = ( i ) => {
-        state.additionalFeatures.push( state.car.features.splice( i, 1 )[ 0 ])
-      }
-      // state.additionalPrice = state.car.features.price
-      return { ...state, additionalFeatures: removeFeature( remainingFeatures )}
+      //create a feature variable for readability
+      const removedFeature = action.payload
+
+      //identify feature by id
+      const removedId = removedFeature.id
+
+      //filter state.car.features to get new array without selected id
+      const newerCarFeatures = state.car.features.filter( item => item.id !== removedId )
+
+      //addselected feature to newAdditionalFeatures
+      const newAdditionalFeatures = [ ...state.additionalFeatures, removedFeature]
+
+      //remove feature price from additionalPrice
+      newerState.additionalPrice -= removedFeature.price
+
+      //update copy of state to reflect changes
+      newerState.car.features = newerCarFeatures
+      newerState.additionalFeatures = newAdditionalFeatures
+      //return new state
+      return newerState
 
     case 'BUY_ITEM':
-      const newFeature = { id: action.payload }
-      console.log( 'BUY_ITEM features:', state.car.features)
-      console.log( 'BUY_ITEM car:', state.car)
-      console.log( 'Car.Features.length @rootReducer:', state.car.features.length)
+      //make a copy of state to manipulate
+      const newState = { ...state }
 
-      const newFeatures = ( i ) => {
-        state.car.features.push( state.additionalFeatures.splice( i, 1 )[ 0 ] )
-      }
-      const featsTotal = state.car.features.reduce( function( prev, cur ){
-        return prev + cur.price
-      }, 0)
-      let addOnPrice = { ...state.additionalPrice }
-      addOnPrice = { ...featsTotal }
-      return { ...state, addOnPrice, features: newFeatures( newFeature ) }
+      //create a feature variable for readability
+      const feature =  action.payload
+
+      //identify feature by id
+      const id = feature.id
+
+      //filter additionalFeatures array to get new array without the selected id
+      const newAdditionalfeatures = state.additionalFeatures.filter( item => item.id !== id )
+      
+      //add the selected feature to car.feature
+      const newCarFeatures = [ ...state.car.features, feature ]
+
+      //add price of feature to the total
+      newState.additionalPrice += feature.price
+
+      //update copy of state to reflect changes
+      newState.additionalFeatures = newAdditionalfeatures
+      newState.car.features = newCarFeatures
+
+      //return the new state
+      return newState
+
 
     default:
       return state

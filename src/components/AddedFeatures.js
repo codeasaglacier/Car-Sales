@@ -2,9 +2,9 @@ import React from 'react';
 import AddedFeature from './AddedFeature';
 
 
-const AddedFeatures = ( { car, removeFeature } ) => {
+const AddedFeatures = ( { car, removeFeature, features } ) => {
   console.log( 'Car at AddedFeatures:', car)
-  console.log( 'Car.Features.length:',car.features.length)
+  // console.log( 'Features.length:', features.length)
   return (
     <div className="content">
       <h6>Added features:</h6>

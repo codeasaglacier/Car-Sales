@@ -1,5 +1,5 @@
 import React from 'react';
-// import { initialState, rootReducer } from './reducers/rootReducer'
+import { initialState } from './reducers/rootReducer'
 import { connect } from 'react-redux'
 import Header from './components/Header';
 import AddedFeatures from './components/AddedFeatures';
@@ -36,7 +36,7 @@ const App = ( { additionalPrice, car, additionalFeatures, addFeature, removeFeat
   );
 };
 
-const mapStateToProps = ( state ) => {
+const mapStateToProps = ( state = initialState ) => {
   console.log('mSTP state:', state)
   return {
     additionalPrice: state.additionalPrice,
